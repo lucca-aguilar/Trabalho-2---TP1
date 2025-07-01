@@ -4,10 +4,6 @@
 
 // implementacao do controlador de menu
 
-// Adicione ao final de controladores.cpp
-
-// --- Implementação do Controlador Principal ---
-
 void MAMenu::execute() {
     CPF loggedInUserCpf;
     bool isAuthenticated = false;
