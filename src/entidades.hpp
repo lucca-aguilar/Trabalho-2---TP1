@@ -151,6 +151,10 @@ class Order{
          * @brief Define a quantidade de ativos envolvidos na operação.
         */
         Quantity quantity;
+        /**
+         * @brief Define a carteira à qual a ordem pertence.
+        */
+        Wallet wallet;
     public:
         /**
          * @brief O método getCode retorna o código identificador da carteira.
@@ -242,6 +246,28 @@ class Order{
          * @param quantity representa a quantidade de ativos. 
         */
         void setQuantity(Quantity quantity);
+        /**
+         * @brief O método setWallet é utilizado para definir a carteira à qual a ordem pertence.
+         * 
+         * Atua como uma interface para registrar a carteira associada à ordem,
+         * atribui o valor recebido ao objeto interno Wallet.
+         * 
+         * @param wallet representa a carteira associada à ordem.
+        */
+        void setWallet(Wallet wallet) {
+            this->wallet = wallet;
+        }
+        /**
+         * @brief O método getWallet retorna a carteira à qual a ordem pertence.
+         * 
+         * Acessa o atributo privado do tipo Wallet e retorna o valor registrado (nesse caso, um objeto da classe Wallet).
+         * Permite a leitura externa da carteira, mantendo o encapsulamento da classe.
+         * 
+         * @return Objeto Wallet correspondente à carteira da ordem.
+        */
+        Wallet getWallet() {
+            return this->wallet;
+        }
 };
 
 inline Code Order::getCode(){
@@ -311,6 +337,10 @@ class Wallet {
          * @brief Define o perfil do investidor.
         */
         Profile profile;
+         /**
+         * @brief Define a quantidade de ordens registradas nessa carteira.
+        */
+        int orders_count = 0;
     public:
         /**
          * @brief O método setCode é utilizado para definir o código de identificação da carteira. 
@@ -366,6 +396,29 @@ class Wallet {
          * @return Objeto Profile correspondente ao perfil do investidor.
         */
         Profile getProfile();
+        /**
+         * @brief O método getOrdersCount retorna a quantidade de ordens registradas nessa carteira.
+         * 
+         * Acessa o atributo privado do tipo int e retorna o valor registrado.
+         * Permite a leitura externa do código, mantendo o encapsulamento da classe.
+         * 
+         * @return Inteiro correspondente à quantidade de ordens registradas.
+        */
+        int getOrdersCount();
+        /**
+         * @brief O método increaseOrdersCount incrementa a quantidade de ordens registradas nessa carteira.
+         * 
+         * Este método é utilizado para atualizar o contador de ordens sempre que uma nova ordem é adicionada à carteira.
+         * Ele simplesmente incrementa o valor do atributo orders_count em 1.
+         */
+        void increaseOrdersCount();
+        /**
+         * @brief O método decreaseOrdersCount decrementa a quantidade de ordens registradas nessa carteira.
+         * 
+         * Este método é utilizado para atualizar o contador de ordens sempre que uma ordem é removida da carteira.
+         * Ele verifica se o contador é maior que zero antes de decrementá-lo, evitando valores negativos.
+         */
+        void decreaseOrdersCount();
 };
 
 inline void Wallet::setCode(string code){
@@ -390,6 +443,20 @@ inline void Wallet::setProfile(string profile){
 
 inline Profile Wallet::getProfile() {
     return profile;
+}
+
+inline int Wallet::getOrdersCount() {
+    return orders_count;
+}
+
+inline void Wallet::increaseOrdersCount() {
+    orders_count++;
+}
+
+inline void Wallet::decreaseOrdersCount() {
+    if (orders_count > 0) {
+        orders_count--;
+    }
 }
 
 #endif

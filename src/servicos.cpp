@@ -114,6 +114,12 @@ bool MSI::edit(Wallet& wallet) {
 }
 
 bool MSI::excludeWallet(Code& code) { // adicionar verificacao para ver se a carteira tem order associada antes de deletar
+    auto it = wallets.find(code.getCode());
+    Wallet *temp = &it->second;
+    if (temp->getOrdersCount() > 0) {
+        cout << "SERVIÇO: Erro, carteira com código " << code.getCode() << " não pode ser excluída, pois possui ordens associadas." << endl;
+        return false;
+    }
     if (wallets.erase(code.getCode()) > 0) {
         return true;
     }
@@ -213,7 +219,10 @@ bool MSI::read(Order* order) {
 }
 
 bool MSI::excludeOrder(Code& code) {
+    auto it = orders.find(code.getCode());
+    Order* temp = &it->second;
     if (orders.erase(code.getCode()) > 0) {
+        temp->getWallet().decreaseOrdersCount();
         return true;
     }
     return false;

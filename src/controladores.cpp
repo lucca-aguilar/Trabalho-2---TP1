@@ -319,6 +319,12 @@ void MAI::execute() {
                     int year = std::stoi(dateStr.substr(4, 4));
                     date.setDate(day, month, year);
 
+                    // adicionar uma ordem a mais na carteira
+                    Wallet wallet;
+                    wallet.setCode(walletCode.getCode());
+                    investmentService->read(&wallet);
+                    wallet.increaseOrdersCount();
+
                     newOrder.setCode(orderCode);
                     newOrder.setDeal(dealCode);
                     newOrder.setDate(date);
