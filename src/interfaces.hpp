@@ -66,7 +66,7 @@ class ISI { // interface da camada de servico para gerenciamento de investimento
         virtual bool read(Order* order) = 0; // metodo virtual puro para ler ordem
         // ordens nao podem ser editadas!!
         virtual bool excludeOrder(Code& code) = 0; // metodo virtual puro para excluir ordem
-        virtual bool listOrders() = 0; // metodo virtual puro para listar ordens
+        virtual bool listOrders(Code& code) = 0; // metodo virtual puro para listar ordens
 
         virtual ~ISI(){} // destruidor virtual padrao
 };

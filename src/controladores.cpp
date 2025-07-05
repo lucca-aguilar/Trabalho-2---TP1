@@ -267,14 +267,17 @@ void MAI::execute() {
                     Code code;
                     Name name;
                     Profile profile;
+                    Money money; 
 
                     code.setCode(codeStr);
                     name.setName(nameStr);
                     profile.setProfile(profileStr);
+                    money.setMoney(0.01);
 
                     newWallet.setCode(code.getCode());
                     newWallet.setName(name.getName());
                     newWallet.setProfile(profile.getProfile());
+                    newWallet.setBalance(money.getMoney());
 
                     if (investmentService->create(newWallet)) {
                         cout << "CONTROLADOR: Carteira criada com sucesso!" << endl;
@@ -319,20 +322,21 @@ void MAI::execute() {
                     int year = std::stoi(dateStr.substr(4, 4));
                     date.setDate(day, month, year);
 
-                    // adicionar uma ordem a mais na carteira
-                    Wallet wallet;
-                    wallet.setCode(walletCode.getCode());
-                    investmentService->read(&wallet);
-                    wallet.increaseOrdersCount();
-
                     newOrder.setCode(orderCode);
                     newOrder.setDeal(dealCode);
                     newOrder.setDate(date);
                     newOrder.setQuantity(quantity);
+                    newOrder.setWalletCode(walletCode); // define a carteira da ordem
                     // o preco e calculado na camada de servico
 
                     if (investmentService->create(newOrder)) {
                         cout << "CONTROLADOR: Ordem criada e preco calculado com sucesso!" << endl;
+
+                         // adicionar uma ordem a mais na carteira
+                        Wallet wallet;
+                        wallet.setCode(walletCode.getCode());
+                        investmentService->read(&wallet);
+                        wallet.increaseOrdersCount();
                     } else {
                         cout << "CONTROLADOR: Falha ao criar ordem. Verifique os dados." << endl;
                     }
@@ -347,7 +351,12 @@ void MAI::execute() {
                 break;
             }
             case 4: { // listar ordens
-                investmentService->listOrders();
+                string walletCodeStr;
+                cout << "Digite o codigo da carteira a que as ordens pertencem: ";
+                cin >> walletCodeStr;
+                Code walletCode;
+                walletCode.setCode(walletCodeStr);
+                investmentService->listOrders(walletCode);
                 break;
             }
             case 5: { // excluir carteira

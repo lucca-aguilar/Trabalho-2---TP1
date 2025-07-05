@@ -139,13 +139,14 @@ bool MSI::listWallets() {
         return true;
     }
 
-    // percorre o mapa
+    // percorre o mapa de carteiras
     for (it = wallets.begin(); it != wallets.end(); ++it) {
         Wallet carteiraAtual = it->second;
-
+        
         cout << "Código: " << carteiraAtual.getCode().getCode()
                   << ", Nome: " << carteiraAtual.getName().getName()
-                  << ", Perfil: " << carteiraAtual.getProfile().getProfile() << endl;
+                  << ", Perfil: " << carteiraAtual.getProfile().getProfile()
+                  << ", Saldo: " << carteiraAtual.getBalance().getMoney() << endl;
     }
 
     cout << "-------------------------------------\n" << endl;
@@ -201,6 +202,8 @@ bool MSI::create(Order& order) {
     double finalPrice = price * finalOrder.getQuantity().getQuantity();
     calculatedPrice.setMoney(finalPrice);
     finalOrder.setMoney(calculatedPrice);
+    double walletIncrease = finalPrice + wallets.find(finalOrder.getWalletCode().getCode())->second.getBalance().getMoney();
+    wallets.find(finalOrder.getWalletCode().getCode())->second.setBalance(walletIncrease);
 
     orders[orderCodeStr] = finalOrder;
     cout << "SERVIÇO: Ordem " << orderCodeStr << " criada com preço calculado de " << finalPrice << endl;
@@ -221,14 +224,17 @@ bool MSI::read(Order* order) {
 bool MSI::excludeOrder(Code& code) {
     auto it = orders.find(code.getCode());
     Order* temp = &it->second;
+    double price = temp->getMoney().getMoney();
+    double walletDecrease = wallets.find(temp->getWalletCode().getCode())->second.getBalance().getMoney() - price;
     if (orders.erase(code.getCode()) > 0) {
-        temp->getWallet().decreaseOrdersCount();
+        wallets.find(temp->getWalletCode().getCode())->second.decreaseOrdersCount();
+        wallets.find(temp->getWalletCode().getCode())->second.setBalance(walletDecrease);
         return true;
     }
     return false;
 }
 
-bool MSI::listOrders() {
+bool MSI::listOrders(Code& code) {
     cout << "\n--- LISTA DE ORDENS NO SERVIÇO ---" << endl;
 
     // se nao houver ordens, informa o usuario e retorna
@@ -246,16 +252,18 @@ bool MSI::listOrders() {
         Order currentOrder = it->second;
 
         // recupera a data para formatar
-        tuple<int, int, int> dataTuple = currentOrder.getDate().getDate();
-        char date[11];
-        sprintf(date, "%02d/%02d/%04d", get<0>(dataTuple), get<1>(dataTuple), get<2>(dataTuple));
+        if(currentOrder.getWalletCode().getCode() == code.getCode()) {
+            tuple<int, int, int> dataTuple = currentOrder.getDate().getDate();
+            char date[11];
+            sprintf(date, "%02d/%02d/%04d", get<0>(dataTuple), get<1>(dataTuple), get<2>(dataTuple));
 
-        // imprime os dados da ordem
-        cout << "Código da Ordem: " << currentOrder.getCode().getCode()
-                  << " | Código de Negociação: " << currentOrder.getDeal().getDeal()
-                  << " | Data: " << date
-                  << " | Preço: " << currentOrder.getMoney().getMoney()
-                  << " | Quantidade: " << currentOrder.getQuantity().getQuantity() << endl;
+            // imprime os dados da ordem
+            cout << "Código da Ordem: " << currentOrder.getCode().getCode()
+                      << " | Código de Negociação: " << currentOrder.getDeal().getDeal()
+                      << " | Data: " << date
+                      << " | Preço: " << currentOrder.getMoney().getMoney()
+                      << " | Quantidade: " << currentOrder.getQuantity().getQuantity() << endl;
+        }
     }
 
     cout << "----------------------------------\n" << endl;

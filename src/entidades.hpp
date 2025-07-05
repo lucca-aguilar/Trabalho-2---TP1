@@ -154,7 +154,7 @@ class Order{
         /**
          * @brief Define a carteira à qual a ordem pertence.
         */
-        Wallet wallet;
+        Code walletCode;
     public:
         /**
          * @brief O método getCode retorna o código identificador da carteira.
@@ -249,14 +249,12 @@ class Order{
         /**
          * @brief O método setWallet é utilizado para definir a carteira à qual a ordem pertence.
          * 
-         * Atua como uma interface para registrar a carteira associada à ordem,
+         * Atua como uma interface para registrar o endereço da carteira associada à ordem,
          * atribui o valor recebido ao objeto interno Wallet.
          * 
          * @param wallet representa a carteira associada à ordem.
         */
-        void setWallet(Wallet wallet) {
-            this->wallet = wallet;
-        }
+        void setWalletCode(Code walletCode);
         /**
          * @brief O método getWallet retorna a carteira à qual a ordem pertence.
          * 
@@ -265,9 +263,7 @@ class Order{
          * 
          * @return Objeto Wallet correspondente à carteira da ordem.
         */
-        Wallet getWallet() {
-            return this->wallet;
-        }
+        Code getWalletCode();
 };
 
 inline Code Order::getCode(){
@@ -310,6 +306,14 @@ inline void Order::setQuantity(Quantity quantity) {
     this->quantity = quantity;
 }
 
+inline void Order::setWalletCode(Code walletCode) {
+    this->walletCode = walletCode;
+}
+
+inline Code Order::getWalletCode() {
+    return walletCode;
+}
+
 /**
  * @class Wallet
  * @brief A entidade Wallet representa uma carteira de investimentos. 
@@ -337,6 +341,10 @@ class Wallet {
          * @brief Define o perfil do investidor.
         */
         Profile profile;
+        /**
+         * @brief Define o saldo de dinheiro na carteira ao se considerar o preço de todas as ordens pertencentes a ela.
+        */
+        Money balance;
          /**
          * @brief Define a quantidade de ordens registradas nessa carteira.
         */
@@ -419,6 +427,24 @@ class Wallet {
          * Ele verifica se o contador é maior que zero antes de decrementá-lo, evitando valores negativos.
          */
         void decreaseOrdersCount();
+        /**
+         * @brief O método setBalance é utilizado para definir o saldo de dinheiro na carteira.
+         * 
+         * Atua como uma interface para registrar o saldo de dinheiro,
+         * atribui o valor recebido ao objeto interno Money.
+         * 
+         * @param money representa o saldo de dinheiro na carteira. 
+        */
+        void setBalance(double money);
+        /**
+         * @brief O método getBalance retorna o saldo de dinheiro na carteira.
+         * 
+         * Acessa o atributo privado do tipo Money e retorna o valor atualmente registrado.
+         * Permite a leitura externa do código, mantendo o encapsulamento da classe.
+         * 
+         * @return Objeto Money correspondente ao saldo de dinheiro na carteira.
+        */
+        Money getBalance();
 };
 
 inline void Wallet::setCode(string code){
@@ -457,6 +483,14 @@ inline void Wallet::decreaseOrdersCount() {
     if (orders_count > 0) {
         orders_count--;
     }
+}
+
+inline void Wallet::setBalance(double money) {
+    this->balance.setMoney(money);
+}
+
+inline Money Wallet::getBalance() {
+    return balance;
 }
 
 #endif

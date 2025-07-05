@@ -43,7 +43,7 @@ class MSI : public ISI {
         bool create(Order& order) override;
         bool read(Order* order) override;
         bool excludeOrder(Code& code) override;
-        bool listOrders() override;
+        bool listOrders(Code& code) override;
 };
 
 #endif
