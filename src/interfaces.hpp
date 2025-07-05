@@ -25,13 +25,13 @@ class IAA { // interface da camada de apresentacao do servico de autenticacao
 class IAC { // interface da camada de apresentacao para os servicos de conta
     public:
         virtual void create() = 0; // metodo virtual puro para solicitar a criacao de uma nova conta
-        virtual void execute(CPF& cpf) = 0; // metodo virtual puro para iniciar a execucao de servicos para usuario ja autenticado
+        virtual void execute(const CPF& cpf) = 0; // metodo virtual puro para iniciar a execucao de servicos para usuario ja autenticado
         virtual ~IAC(){} // destruidos virtual padrao
 };
 
 class IAI { // interface da camada de apresentacao para os servicos de investimento
     public:
-        virtual void execute() = 0; // inicia a execucao dos servicos de investimento
+        virtual void execute(Account& account) = 0; // inicia a execucao dos servicos de investimento
         virtual ~IAI(){} // destruidor virtual padrao
 };
 
@@ -48,7 +48,7 @@ class ISC { // interface da camada de servico para gerenciamento de contas
         virtual bool create(Account& account) = 0; // metodo virtual puro para criar conta
         virtual bool read(Account* account) = 0; // metodo virtual puro para ler conta
         virtual bool edit(Account& account) = 0; // metodo virtual puro para editar conta
-        virtual bool exclude(CPF& cpf) = 0; // metodo virtual puro para excluir conta
+        virtual bool exclude(const CPF& cpf) = 0; // metodo virtual puro para excluir conta
         virtual ~ISC(){} // destruidor virtual padrao
 };
 

@@ -5,7 +5,7 @@
 // implementacao do controlador de menu
 
 void MAMenu::execute() {
-    CPF loggedInUserCpf;
+    Account loggedInUser;
     bool isAuthenticated = false;
     int choice;
 
@@ -25,7 +25,7 @@ void MAMenu::execute() {
                     ctrlAccount->create();
                     break;
                 case 2:
-                    isAuthenticated = ctrlAuth->autenticate(&loggedInUserCpf);
+                    isAuthenticated = ctrlAuth->autenticate(&loggedInUser.getCPF());
                     break;
                 case 3:
                     cout << "Encerrando o sistema..." << endl;
@@ -37,7 +37,7 @@ void MAMenu::execute() {
         } else {
             // menu logado
             cout << "\n========= Menu Principal (Logado) =========" << endl;
-            cout << "Usuario: " << loggedInUserCpf.getCPF() << endl;
+            cout << "Usuario: " << loggedInUser.getCPF().getCPF() << endl;
             cout << "1. Gerenciar minha conta" << endl;
             cout << "2. Acessar investimentos" << endl;
             cout << "3. Deslogar" << endl;
@@ -47,10 +47,10 @@ void MAMenu::execute() {
 
             switch (choice) {
                 case 1:
-                    ctrlAccount->execute(loggedInUserCpf);
+                    ctrlAccount->execute(loggedInUser.getCPF());
                     break;
                 case 2:
-                    ctrlInvestment->execute();
+                    ctrlInvestment->execute(loggedInUser);
                     break;
                 case 3:
                     isAuthenticated = false;
@@ -113,14 +113,17 @@ void MAC::create() {
         Name name;
         CPF cpf;
         Password password;
+        Money balance;
 
         name.setName(nameStr);
         cpf.setCPF(cpfStr);
         password.setPassword(passwordStr);
+        balance.setMoney(0.00);
 
         newAccount.setName(name.getName());
         newAccount.setCPF(cpf.getCPF());
         newAccount.setPassword(password.getPassword());
+        newAccount.setBalance(balance.getMoney());
 
         if (accountService->create(newAccount)) {
             cout << "CONTROLADOR: Conta criada com sucesso!" << endl;
@@ -133,7 +136,7 @@ void MAC::create() {
     }
 }
 
-void MAC::execute(CPF& cpf) {
+void MAC::execute(const CPF& cpf) {
     int choice;
     bool running = true;
 
@@ -233,7 +236,7 @@ void MAC::execute(CPF& cpf) {
 
 // implementacao do controlador de investimentos
 
-void MAI::execute() {
+void MAI::execute(Account& account) {
     int choice;
     bool running = true;
 
@@ -272,12 +275,13 @@ void MAI::execute() {
                     code.setCode(codeStr);
                     name.setName(nameStr);
                     profile.setProfile(profileStr);
-                    money.setMoney(0.01);
+                    money.setMoney(0.00);
 
                     newWallet.setCode(code.getCode());
                     newWallet.setName(name.getName());
                     newWallet.setProfile(profile.getProfile());
                     newWallet.setBalance(money.getMoney());
+                    newWallet.setAccountOwner(&account);
 
                     if (investmentService->create(newWallet)) {
                         cout << "CONTROLADOR: Carteira criada com sucesso!" << endl;
@@ -326,7 +330,7 @@ void MAI::execute() {
                     newOrder.setDeal(dealCode);
                     newOrder.setDate(date);
                     newOrder.setQuantity(quantity);
-                    newOrder.setWalletCode(walletCode); // define a carteira da ordem
+                    newOrder.setWalletCode(walletCode); 
                     // o preco e calculado na camada de servico
 
                     if (investmentService->create(newOrder)) {

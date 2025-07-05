@@ -49,7 +49,7 @@ bool MSC::edit(Account& account) {
     }
 }
 
-bool MSC::exclude(CPF& cpf) {
+bool MSC::exclude(const CPF& cpf) {
     string cpfStr = cpf.getCPF();
 
     // erase() retorna o numero de elementos removidos
@@ -204,6 +204,8 @@ bool MSI::create(Order& order) {
     finalOrder.setMoney(calculatedPrice);
     double walletIncrease = finalPrice + wallets.find(finalOrder.getWalletCode().getCode())->second.getBalance().getMoney();
     wallets.find(finalOrder.getWalletCode().getCode())->second.setBalance(walletIncrease);
+
+    
 
     orders[orderCodeStr] = finalOrder;
     cout << "SERVIÇO: Ordem " << orderCodeStr << " criada com preço calculado de " << finalPrice << endl;

@@ -34,6 +34,10 @@ class Account {
          * @brief Define a senha associada a conta.
         */
         Password password;
+        /**
+         * @brief Define o saldo de dinheiro na conta.
+         */
+        Money balance;
     public: 
         /**
          * @brief O método getCPF retorna o CPF do investidor.
@@ -89,6 +93,24 @@ class Account {
          * @param password representa a senha usuário. 
         */
         void setPassword(string input_password);
+        /**
+         * @brief O método getBalance retorna o saldo de dinheiro na conta, que representa a soma do saldo de cada uma das carteiras.
+         * 
+         * Acessa o atributo privado do tipo Money e retorna o valor atualmente registrado.
+         * Permite a leitura externa do código, mantendo o encapsulamento da classe.
+         * 
+         * @return Objeto Money correspondente ao saldo de dinheiro na conta.
+        */
+        Money getBalance();
+        /**
+         * @brief O método setBalance é utilizado para definir o saldo de dinheiro na conta. 
+         * 
+         * Atua como uma interface para registrar o saldo do usuário,
+         * atribui o valor recebido ao objeto interno balance. 
+         * 
+         * @param input_balance representa o saldo de dinheiro na conta do investidor. 
+        */
+        void setBalance(double input_balance);
 };
 
 inline CPF Account::getCPF() {
@@ -113,6 +135,14 @@ inline Password Account::getPassword() {
 
 inline void Account::setPassword(string input_password) {
     this->password.setPassword(input_password);
+}
+
+inline Money Account::getBalance() {
+    return balance;
+}
+
+inline void Account::setBalance(double input_balance) {
+    this->balance.setMoney(input_balance);
 }
 
 /**
@@ -345,6 +375,10 @@ class Wallet {
          * @brief Define o saldo de dinheiro na carteira ao se considerar o preço de todas as ordens pertencentes a ela.
         */
         Money balance;
+        /**
+         * @brief Define o proprietário da conta.
+         */
+        Account* accountOwner;
          /**
          * @brief Define a quantidade de ordens registradas nessa carteira.
         */
@@ -445,6 +479,24 @@ class Wallet {
          * @return Objeto Money correspondente ao saldo de dinheiro na carteira.
         */
         Money getBalance();
+        /**
+         * @brief O método setAccountOwner é utilizado para definir o CPF do proprietário da conta.
+         * 
+         * Atua como uma interface para registrar o CPF do proprietário,
+         * atribui o valor recebido ao objeto interno CPF.
+         * 
+         * @param cpf representa o CPF do proprietário da conta. 
+        */
+        void setAccountOwner(Account* account);
+        /**
+         * @brief O método getAccountOwner retorna o CPF do proprietário da conta.
+         * 
+         * Acessa o atributo privado do tipo CPF e retorna o valor atualmente registrado.
+         * Permite a leitura externa do código, mantendo o encapsulamento da classe.
+         * 
+         * @return Objeto CPF correspondente ao proprietário da conta.
+        */
+        Account* getAccountOwner();
 };
 
 inline void Wallet::setCode(string code){
@@ -491,6 +543,14 @@ inline void Wallet::setBalance(double money) {
 
 inline Money Wallet::getBalance() {
     return balance;
+}
+
+inline void Wallet::setAccountOwner(Account* account) {
+    this->accountOwner = account;
+}
+
+inline Account* Wallet::getAccountOwner() {
+    return accountOwner;
 }
 
 #endif

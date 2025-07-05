@@ -113,10 +113,10 @@ class CPF {
          *
          * @return String contendo o CPF registrado.
         */
-        string getCPF();
+        string getCPF() const;
 };
 
-inline string CPF::getCPF() {
+inline string CPF::getCPF() const {
     return cpf;
 }
 
