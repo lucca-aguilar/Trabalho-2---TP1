@@ -24,10 +24,11 @@ void MAMenu::execute() {
                 case 1:
                     ctrlAccount->create();
                     break;
-                case 2:{
+                case 2:  {
                     CPF cpfUsuario = loggedInUser.getCPF();
 
-                    isAuthenticated = ctrlAuth->autenticate(&cpfUsuario);}
+                    isAuthenticated = ctrlAuth->autenticate(&cpfUsuario);
+                }
                     break;
                 case 3:
                     cout << "Encerrando o sistema..." << endl;
@@ -51,11 +52,8 @@ void MAMenu::execute() {
                 case 1:
                     ctrlAccount->execute(loggedInUser.getCPF());
                     break;
-                case 2:{
-                    CPF cpfUsuario = loggedInUser.getCPF();
-
-                    isAuthenticated = ctrlAuth->autenticate(&cpfUsuario);
-                }
+                case 2:
+                    ctrlInvestment->execute(loggedInUser);
                     break;
                 case 3:
                     isAuthenticated = false;
@@ -280,7 +278,7 @@ void MAI::execute(Account& account) {
                     code.setCode(codeStr);
                     name.setName(nameStr);
                     profile.setProfile(profileStr);
-                    money.setMoney(0.01);
+                    money.setMoney(0.02);
 
                     newWallet.setCode(code.getCode());
                     newWallet.setName(name.getName());
