@@ -44,7 +44,7 @@ class ISA { // interface da camada de servico para autenticacao
 };
 
 class ISC { // interface da camada de servico para gerenciamento de contas
-    public: 
+    public:
         virtual bool create(Account& account) = 0; // metodo virtual puro para criar conta
         virtual bool read(Account* account) = 0; // metodo virtual puro para ler conta
         virtual bool edit(Account& account) = 0; // metodo virtual puro para editar conta
@@ -71,4 +71,4 @@ class ISI { // interface da camada de servico para gerenciamento de investimento
         virtual ~ISI(){} // destruidor virtual padrao
 };
 
-#endif 
+#endif
