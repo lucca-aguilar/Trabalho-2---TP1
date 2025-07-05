@@ -24,12 +24,15 @@ void MAMenu::execute() {
                 case 1:
                     ctrlAccount->create();
                     break;
-                case 2:
-                    isAuthenticated = ctrlAuth->autenticate(&loggedInUser.getCPF());
+                case 2:  {
+                    CPF cpfUsuario = loggedInUser.getCPF();
+
+                    isAuthenticated = ctrlAuth->autenticate(&cpfUsuario);
+                }
                     break;
                 case 3:
                     cout << "Encerrando o sistema..." << endl;
-                    return; 
+                    return;
                 default:
                     cout << "Opcao invalida. Tente novamente." << endl;
                     break;
@@ -166,7 +169,7 @@ void MAC::execute(const CPF& cpf) {
             case 2: { // editar dados
                 Account accountToEdit;
                 accountToEdit.setCPF(cpf.getCPF());
-                
+
                 // leitura dos dados atuais
                 if (!accountService->read(&accountToEdit)) {
                     cout << "ERRO: Conta nao encontrada para edicao." << endl;
@@ -270,7 +273,7 @@ void MAI::execute(Account& account) {
                     Code code;
                     Name name;
                     Profile profile;
-                    Money money; 
+                    Money money;
 
                     code.setCode(codeStr);
                     name.setName(nameStr);
@@ -330,7 +333,7 @@ void MAI::execute(Account& account) {
                     newOrder.setDeal(dealCode);
                     newOrder.setDate(date);
                     newOrder.setQuantity(quantity);
-                    newOrder.setWalletCode(walletCode); 
+                    newOrder.setWalletCode(walletCode);
                     // o preco e calculado na camada de servico
 
                     if (investmentService->create(newOrder)) {
