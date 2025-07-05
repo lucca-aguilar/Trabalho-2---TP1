@@ -309,6 +309,8 @@ class ISI {
          */
 
         virtual ~ISI() {}
+    
+        /// @}
 };
 
 #endif
