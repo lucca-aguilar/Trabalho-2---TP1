@@ -6,6 +6,8 @@
 
 void MAMenu::execute() {
     Account loggedInUser;
+    CPF loggedInUserCPF;
+    loggedInUser.setCPF(loggedInUserCPF.getCPF());
     bool isAuthenticated = false;
     int choice;
 
@@ -25,9 +27,9 @@ void MAMenu::execute() {
                     ctrlAccount->create();
                     break;
                 case 2:{
-                    CPF cpfUsuario = loggedInUser.getCPF();
 
-                    isAuthenticated = ctrlAuth->autenticate(&cpfUsuario);}
+                    isAuthenticated = ctrlAuth->autenticate(&loggedInUserCPF);
+                }
                     break;
                 case 3:
                     cout << "Encerrando o sistema..." << endl;
