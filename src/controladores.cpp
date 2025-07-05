@@ -7,7 +7,6 @@
 void MAMenu::execute() {
     Account loggedInUser;
     CPF loggedInUserCPF;
-    loggedInUser.setCPF(loggedInUserCPF.getCPF());
     bool isAuthenticated = false;
     int choice;
 
@@ -27,8 +26,8 @@ void MAMenu::execute() {
                     ctrlAccount->create();
                     break;
                 case 2:{
-
                     isAuthenticated = ctrlAuth->autenticate(&loggedInUserCPF);
+                    loggedInUser.setCPF(loggedInUserCPF.getCPF());
                 }
                     break;
                 case 3:
