@@ -24,7 +24,7 @@
 */
 var NAVTREE =
 [
-  [ "Carteira de Investimentos", "index.html", [
+  [ "Carteira de Investimento", "index.html", [
     [ "Classes", "annotated.html", [
       [ "Lista de Classes", "annotated.html", "annotated_dup" ],
       [ "Índice dos Componentes", "classes.html", null ],
