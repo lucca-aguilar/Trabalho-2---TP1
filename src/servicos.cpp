@@ -205,7 +205,8 @@ bool MSI::create(Order& order) {
     double walletIncrease = finalPrice + wallets.find(finalOrder.getWalletCode().getCode())->second.getBalance().getMoney();
     wallets.find(finalOrder.getWalletCode().getCode())->second.setBalance(walletIncrease);
 
-    
+    double accountIncrease = finalPrice + wallets.find(finalOrder.getWalletCode().getCode())->second.getAccountOwner()->getBalance().getMoney();
+    wallets.find(finalOrder.getWalletCode().getCode())->second.getAccountOwner()->setBalance(accountIncrease);
 
     orders[orderCodeStr] = finalOrder;
     cout << "SERVIÇO: Ordem " << orderCodeStr << " criada com preço calculado de " << finalPrice << endl;
@@ -228,9 +229,11 @@ bool MSI::excludeOrder(Code& code) {
     Order* temp = &it->second;
     double price = temp->getMoney().getMoney();
     double walletDecrease = wallets.find(temp->getWalletCode().getCode())->second.getBalance().getMoney() - price;
+    double accountDecrease = wallets.find(temp->getWalletCode().getCode())->second.getAccountOwner()->getBalance().getMoney() - price;
     if (orders.erase(code.getCode()) > 0) {
         wallets.find(temp->getWalletCode().getCode())->second.decreaseOrdersCount();
         wallets.find(temp->getWalletCode().getCode())->second.setBalance(walletDecrease);
+        wallets.find(temp->getWalletCode().getCode())->second.getAccountOwner()->setBalance(accountDecrease);
         return true;
     }
     return false;

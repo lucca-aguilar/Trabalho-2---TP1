@@ -164,6 +164,7 @@ void MAC::execute(const CPF& cpf) {
                     cout << "\n--- Dados da Conta ---" << endl;
                     cout << "Nome: " << account.getName().getName() << endl;
                     cout << "CPF: " << account.getCPF().getCPF() << endl;
+                    cout << "Saldo: R$ " << account.getBalance().getMoney() << endl;
                 } else {
                     cout << "ERRO: Nao foi possivel encontrar os dados da conta." << endl;
                 }
