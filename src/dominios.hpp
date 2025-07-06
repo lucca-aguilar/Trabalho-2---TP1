@@ -11,11 +11,11 @@ using namespace std;
 /**
  * @class Code
  * @brief Representa o código de identificação.
- * 
+ *
  * Código é um identificador único atribuído a algo com o objetivo de diferenciá-lo dos demais dentro de um sistema.
- * Pode ser composto por números, letras ou uma combinação de ambos, sendo utilizado para facilitar a organização,localização e manipulação de dados. 
+ * Pode ser composto por números, letras ou uma combinação de ambos, sendo utilizado para facilitar a organização,localização e manipulação de dados.
  * Em contextos financeiros, um código pode representar uma carteira, entre outros.
- * 
+ *
  */
 class Code{
     private:
@@ -28,7 +28,7 @@ class Code{
          * @brief O método validate verifica se o código de identificação é válido.
          *
          * Verifica se o código informado é composto apenas por números e se possui exatamente cinco caracteres.
-         * 
+         *
          * @param input_code Código a ser validado.
          * @throw invalid_argument se o código for inválido .
         */
@@ -37,17 +37,17 @@ class Code{
     public:
         /**
          * @brief O método setCode registra o código de identificação.
-         * 
+         *
          * Define um valor ao atributo interno code, responsável por armazenar codigo de identificação.
          * Antes de atribuir o valor, ela realiza a validação ao chamar o método validate, garantindo que a entrada siga os padrões estabelecidos.
-         * 
+         *
          * @param input_code representa valor do código.
         */
         void setCode(string);
         /**
          * @brief O método getCode retorna o código de identificação.
          *
-         * Permite o acesso externo ao valor armazenado no atributo interno code. 
+         * Permite o acesso externo ao valor armazenado no atributo interno code.
          *
          * @return String contendo o código registrado.
         */
@@ -66,9 +66,9 @@ inline void Code::setCode(string input_code){
 /**
  * @class CPF
  * @brief Representa o CPF do usuário.
- * 
- * CPF (Cadastro de Pessoas Físicas) é um número único de identificação emitido pela Receita Federal do Brasil para cada cidadão do país. 
- * Ele serve para identificar cada pessoa física em diversas situações, como transações bancárias, contratos e cadastros em geral. 
+ *
+ * CPF (Cadastro de Pessoas Físicas) é um número único de identificação emitido pela Receita Federal do Brasil para cada cidadão do país.
+ * Ele serve para identificar cada pessoa física em diversas situações, como transações bancárias, contratos e cadastros em geral.
  * O CPF possui 11 dígitos numéricos e inclui mecanismos para garantir sua autenticidade.
  */
 class CPF {
@@ -85,7 +85,7 @@ class CPF {
          * @brief Verifica se o CPF informado é válido.
          *
          * Este método realiza as seguintes verificações, lançando exceção em caso de falha:
-         * 
+         *
          * - A string contém exatamente 11 dígitos numéricos.
          * - Não contém caracteres especiais.
          * - Não são todos os dígitos iguais.
@@ -93,30 +93,30 @@ class CPF {
          * - O segundo dígito verificador.
          *
          * @param input_cpf String que representa o CPF.
-         * @throw invalid_argument se o CPF for inválido. 
+         * @throw invalid_argument se o CPF for inválido.
         */
-        void validate(string cpf); 
+        void validate(string cpf);
     public:
         /**
          * @brief O método setCPF registra o CPF.
-         * 
+         *
          * Define um valor ao atributo interno cpf, responsável por armazenar o CPF do usuário.
          * Antes de atribuir o valor, ela realiza a validação ao chamar o método validate, garantindo que a entrada siga os padrões estabelecidos.
-         * 
+         *
          * @param input_cpf representa valor do CPF.
         */
         void setCPF(string cpf);
         /**
          * @brief O método getCPF retorna o CPF.
          *
-         * Permite o acesso externo ao valor armazenado no atributo interno cpf. 
+         * Permite o acesso externo ao valor armazenado no atributo interno cpf.
          *
          * @return String contendo o CPF registrado.
         */
-        string getCPF();
+        string getCPF() const ;
 };
 
-inline string CPF::getCPF() {
+inline string CPF::getCPF() const  {
     return cpf;
 }
 
@@ -127,54 +127,54 @@ inline void CPF::setCPF(string input_cpf) {
 
 /**
  * @class Date
- * 
+ *
  * @brief Representa a data de uma operação
- * 
- * Data de uma operação na bolsa representa um momento temporal que indica o instante em que uma transação financeira foi realizada. 
- * Essa data é fundamental para identificar, registrar e controlar as operações, sendo utilizada para: 
- * 
+ *
+ * Data de uma operação na bolsa representa um momento temporal que indica o instante em que uma transação financeira foi realizada.
+ * Essa data é fundamental para identificar, registrar e controlar as operações, sendo utilizada para:
+ *
  * - Fins contábeis;
- * - Fiscais; 
+ * - Fiscais;
  * - Para o cálculo dos prazos de liquidação dos ativos negociados.
  * Possui formato DD/MM/AAAA.
  */
 class Date{
     private:
         /**
-         * @brief Registra o dia; 
+         * @brief Registra o dia;
         */
         int day;
         /**
-         * @brief Registra o mês; 
+         * @brief Registra o mês;
         */
         int month;
         /**
-         * @brief Registra o ano; 
+         * @brief Registra o ano;
         */
         int year;
         /**
          * @brief Verifica se a data informada é válida
-         * 
+         *
          * Se a data informada seguir o  seguinte padrão será considerado válido:
-         * 
+         *
          * - Intervalos corretos para dia, mês e ano;
          * - Validação para meses com 30 dias;
          * - Consideração de anos bissextos para o mês de fevereiro.
-         * 
+         *
          * @param input_day Representa o dia.
          * @param input_month Representa o mês.
          * @param input_year Representa o ano.
-         * 
+         *
          * @throw invalid_argument se a data for inválida.
         */
         void validate(int, int, int);
     public:
         /**
          * @brief O método setDate registra a data.
-         * 
+         *
          * Define um valor aos atributos internos day, month e year, responsável por armazenar a data da operação.
          * Antes de atribuir o valor, ela realiza a validação ao chamar o método validate, garantindo que a entrada siga os padrões estabelecidos.
-         * 
+         *
          * @param input_day Representa o dia.
          * @param input_month Representa o mês.
          * @param input_year Representa o ano.
@@ -205,10 +205,10 @@ inline void Date::setDate(int input_day, int input_month, int input_year){
 
 /**
  * @class Money
- * @brief Responsável por defir a quantidade de dinheiro armazenado. 
- * 
- * Dinheiro é qualquer bem ou objeto geralmente aceito como meio de troca na compra e venda de bens e serviços. 
- * 
+ * @brief Responsável por defir a quantidade de dinheiro armazenado.
+ *
+ * Dinheiro é qualquer bem ou objeto geralmente aceito como meio de troca na compra e venda de bens e serviços.
+ *
 */
 class Money {
     private:
@@ -225,22 +225,22 @@ class Money {
         */
         double money;
         /**
-         * @brief O método validate verifica se a quantidade de dinheiro é válido. 
-         * 
+         * @brief O método validate verifica se a quantidade de dinheiro é válido.
+         *
          * Verifica se a quantidade de recursos investidos está entre os valores máximo e mínimo.
          * Se for inválido, uma exceção é lançada.
-         * 
+         *
          * @param input_money Quantidade a ser validada.
          * @throw invalid_argument se a quantidade de dinheiro estiver fora dos limites estabelecidos.
         */
-        void validate(double); 
+        void validate(double);
     public:
         /**
          * @brief O método setMoney atribui a quantidade de dinheiro
-         * 
+         *
          * Determina um valor ao atributo interno money, responsável por armazenar a quantidade de dinheiro investido.
-         * Antes de registrar, realiza a validação da quantidade informada ao chamar o método validate, garantindo que esteja entre os valores estabelecidos. 
-         * 
+         * Antes de registrar, realiza a validação da quantidade informada ao chamar o método validate, garantindo que esteja entre os valores estabelecidos.
+         *
          * @param input_money representa a quantidade de dinheiro informada pelo usuário.
         */
         void setMoney(double);
@@ -252,7 +252,7 @@ class Money {
          * @return a quantidade de dinheiro aplicado.
         */
         double getMoney();
-}; 
+};
 
 inline double Money::getMoney(){
       return money;
@@ -266,12 +266,12 @@ inline void Money::setMoney(double input_money){
 /**
  * @class Deal
  * @brief Representa o identificador do negócio realizado.
- * 
- * Negócio refere-se a uma transação ou operação financeira, como compra ou venda de ativos. 
+ *
+ * Negócio refere-se a uma transação ou operação financeira, como compra ou venda de ativos.
  * O identificador do negócio é utilizado para conseguir encontrar, no sistema do banco, determinada operação realizada.
  * Nesse caso, o código de negociação é um identificador único que representa uma transação específica.
  * Esse código pode ser composto por letras e números, facilitando a identificação e o rastreamento de transações financeiras.
- * 
+ *
 */
 class Deal{
     private:
@@ -291,7 +291,7 @@ class Deal{
          * O código não pode conter caracteres especiais e nem espaços em branco repetidos.
          * Em caso de entrada inválida, uma exceção é lançada, impedindo a atribuição do valor à variável deal.
          * Essa validação é chamada ao passar um parâmetro para o método setDeal.
-         * 
+         *
          * @param input_deal Código a ser validado, passado pelo método setDeal.
          * @throw invalid_argument se o código for inválido.
         */
@@ -299,10 +299,10 @@ class Deal{
     public:
         /**
          * @brief O método setDeal registra o código de negociação.
-         * 
+         *
          * Define um valor ao atributo interno deal, responsável por armazenar o código de negociação.
-         * Antes de atribuir o valor, ela realiza a validação ao chamar o método validate, garantindo que a entrada siga os padrões estabelecidos. 
-         * 
+         * Antes de atribuir o valor, ela realiza a validação ao chamar o método validate, garantindo que a entrada siga os padrões estabelecidos.
+         *
          * @param input_deal representa o código de negociação informado pelo usuário.
         */
         void setDeal(string);
@@ -328,11 +328,11 @@ inline void Deal::setDeal(string input_deal){
 /**
  * @class Name
  * @brief Responsável por armazenar o nome do investidor.
- * 
- * Nome é a designação que identifica uma pessoa, podendo ser composto por um ou mais nomes e sobrenomes. 
+ *
+ * Nome é a designação que identifica uma pessoa, podendo ser composto por um ou mais nomes e sobrenomes.
  * É utilizado para distinguir indivíduos e facilitar a comunicação.
  * No que diz respeito a investimentos, o nome é um dado essencial para identificar o investidor e associá-lo a suas transações financeiras.
- * 
+ *
 */
 class Name{
     private:
@@ -352,7 +352,7 @@ class Name{
          * O nome não pode conter caracteres especiais.
          * Em caso de entrada inválida, uma exceção é lançada, impedindo a atualização do valor armazenado na variável name.
          * Essa validação é chamada ao passar um parâmetro para o método setName.
-         * 
+         *
          * @param input_name Nome a ser validado, passado pelo método setName.
          * @throw invalid_argument se o nome for inválido.
         */
@@ -360,10 +360,10 @@ class Name{
     public:
         /**
          * @brief O método setName registra o nome do investidor.
-         * 
+         *
          * Define um valor ao atributo interno name, responsável por armazenar o nome do investidor.
-         * Antes de atribuir o valor, ela realiza a validação chamando o método validate, garantindo que a entrada siga os padrões estabelecidos. 
-         * 
+         * Antes de atribuir o valor, ela realiza a validação chamando o método validate, garantindo que a entrada siga os padrões estabelecidos.
+         *
          * @param input_name representa o nome informado pelo usuário.
          */
         void setName(string);
@@ -389,30 +389,30 @@ inline void Name::setName(string input_name){
 /************************************************************************************************************************************//**
  * @class Password
  * @brief Classe construída para a validação e armazenamento de senhas de usuário.
- * 
+ *
  * A classe Password armazena a senha do usuário, que deve ser validada conforme seu tamanho e os
- * caracteres que a compõe. A senha deve ter 6 caracteres, sem poder possuir caracteres duplicados. 
+ * caracteres que a compõe. A senha deve ter 6 caracteres, sem poder possuir caracteres duplicados.
  * A senha deve ter, no mínimo:
- * 
+ *
  * - Uma letra maiúscula
  * - Uma letra minúscula
  * - Um dígito numérico
  * - Um caractere especial dentre (#, $, % e &)
- * 
+ *
 ****************************************************************************************************************************************/
 
 class Password {
     private :
        /************************************************************************************************************************************//**
          * @brief Enum que abstrai valores correspondentes às necessidades da senha armazenada.
-         * 
+         *
          * Os valores são:
-         * 
+         *
          * - DIGIT = 0
          * - SPECIAL_CHARACTER = 1
          * - LOWER = 2
          * - UPPER = 3
-         * 
+         *
         ****************************************************************************************************************************************/
         enum CONDITIONS {DIGIT, SPECIAL_CHARACTER, LOWER, UPPER};
 
@@ -428,15 +428,15 @@ class Password {
 
         /************************************************************************************************************************************//**
          * @brief O método validate verifica a validação de uma dada string.
-         * 
-         * Dada uma string, esse metodo verifica se ela é válida ou não conforme as seguintes especificações: 
-         * 
+         *
+         * Dada uma string, esse metodo verifica se ela é válida ou não conforme as seguintes especificações:
+         *
          * - Possui 6 caracteres
          * - Sem caracteres duplicados
          * - No mínimo uma letra maiúscula
          * - No mínimo uma letra minúscula
          * - No mínimo um dígito numérico
-         * 
+         *
          * @param input_password String to be validated
         ****************************************************************************************************************************************/
         void validate(string input_password);
@@ -444,20 +444,20 @@ class Password {
     public :
         /************************************************************************************************************************************//**
          * @brief O método setPassword define o valor armazenado como a string de input, caso esta seja válida.
-         * 
-         * Atua como interface para definir a senha do usuário, chamando o método validate para validar a string de input. 
+         *
+         * Atua como interface para definir a senha do usuário, chamando o método validate para validar a string de input.
          * Permite a leitura externa do código, mantendo o encapsulamento da classe.
-         * 
+         *
          * @param input_password String a ser armazenada dentro da instância de classe
         ****************************************************************************************************************************************/
         void setPassword (string input_password);
 
         /************************************************************************************************************************************//**
-         * @brief O método getPassword retorna o valor de senha armazenado na instância de classe. 
-         * 
+         * @brief O método getPassword retorna o valor de senha armazenado na instância de classe.
+         *
          * Atua como interface para acesso do atributo privado 'user_password'.
          * Permite a leitura externa do código, mantendo o encapsulamento da classe.
-         * 
+         *
          * @return A senha armazenada na instâcia de classe.
         ****************************************************************************************************************************************/
         string getPassword();
@@ -472,17 +472,17 @@ inline string Password::getPassword() {
     return user_password;
 }
 
-/** 
+/**
  * @class Profile
  * @brief Responsável por representar o perfil do investidor.
- * 
+ *
  * O perfil de investidor define o grau de tolerância ao risco e influencia diretamente nas recomendações de investimento.
  * Os perfis usados são:
- * 
+ *
  * - Conservador: prioriza segurança e estabilidade;
  * - Moderado: busca equilíbrio entre risco e retorno;
  * - Agressivo: aceita maiores riscos em troca de maior rentabilidade.
- * 
+ *
 */
 class Profile{
   private:
@@ -493,41 +493,41 @@ class Profile{
     /**
      * @brief Define o perfil moderado.
     */
-    inline static const string MODERATE = "Moderado"; 
+    inline static const string MODERATE = "Moderado";
     /**
      * @brief Define o perfil agressivo.
     */
-    inline static const string AGGRESSIVE = "Agressivo"; 
+    inline static const string AGGRESSIVE = "Agressivo";
     /**
      * @brief String que registra o perfil informado.
     */
     string profile;
     /**
-     * @brief O método format garante que a entrada siga os padrões estabelecidos 
-     * 
+     * @brief O método format garante que a entrada siga os padrões estabelecidos
+     *
      * Formata a string de entrada de modo que a primeira letra fique maiúscula e as demais, minúsculas.
-     * 
+     *
      * @param input_profile representa o perfil informado.
      * @return Perfil de investidor formatado.
     */
     string format(string);
     /**
-     * @brief O método validate verifica se o perfil é válido 
-     * 
+     * @brief O método validate verifica se o perfil é válido
+     *
      * Verifica se a entrada corresponde a um dos valores permitidos.
      * Se a entrada for diferente, uma exceção é lançada, impedindo a atribuição do valor à variável profile.
-     * 
+     *
      *@throw invalid_argument se o perfil inserido não corresponder aos perfis válidos.
     */
-    void validate(string input_profile);  
+    void validate(string input_profile);
 
   public:
     /**
      * @brief O método setProfile atribui o tipo de investidor.
-     * 
+     *
      * Define um valor ao atributo interno profile, responsável por armazenar o tipo de investidor.
      * Antes de atribuir o valor, ela realiza a validação do perfil informado ao chamar o método validate, garantindo que seja um dos três permitidos.
-     * 
+     *
      * @param input_profile representa o perfil de investidor informado pelo usuário.
     */
     void setProfile(string);
@@ -539,7 +539,7 @@ class Profile{
      * @return String contendo o perfil de investidor atual.
     */
     string getProfile();
-}; 
+};
 
 
 inline string Profile::format(string input_profile){
@@ -565,11 +565,11 @@ inline string Profile :: getProfile(){
 /**
  * @class Quantity
  * @brief Representa a quantidade de um item ou ativo financeiro.
- * 
- * Quantidade refere-se ao número total de unidades de um determinado item, ativo ou recurso. 
+ *
+ * Quantidade refere-se ao número total de unidades de um determinado item, ativo ou recurso.
  * Em contextos financeiros e de investimento, representa o volume de elementos adquiridos, movimentados ou mantidos, como cotas de um fundo.
  * Esse valor é essencial para o controle patrimonial e o cálculo de rendimentos.
- * 
+ *
 */
 class Quantity{
     private:
@@ -580,7 +580,7 @@ class Quantity{
         /**
          * @brief O método validate verifica se a quantidade é válida.
          *
-         * Verifica se a string contém apenas números. 
+         * Verifica se a string contém apenas números.
          * Depois converte a string para inteiro e analisa se o valor está dentro dos limites permitidos.
          * Caso não corresponda ao esperado, uma exceção é lançada e a atribuição à variável quantity é impedida.
          *
@@ -595,12 +595,12 @@ class Quantity{
     public:
         /**
          * @brief O método setQuantity registra a quantidade de ativos.
-         * 
+         *
          * Define um valor ao atributo interno final_quantity, responsável por armazenar a quantidade.
          * Antes de atribuir o valor, ela realiza a validação ao chamar o método validate, garantindo que a entrada siga os padrões estabelecidos.
-         * 
+         *
          * @param input_quantity representa a quantidade informada pelo usuário.
-        */ 
+        */
         void setQuantity(string);
         /**
          * @brief O método getQuantity retorna o a quantidade registrada.

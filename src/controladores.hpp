@@ -46,7 +46,7 @@ class MAC : public IAC {
             this->accountService = service;
         }
         void create() override;
-        void execute(CPF& cpf) override;
+        void execute(const CPF& cpf) override;
 };
 
 // declaracao do controlador de investimento
@@ -59,7 +59,7 @@ class MAI : public IAI {
         void setInvestmentService(ISI* service) {
             this->investmentService = service;
         }
-        void execute() override;
+        void execute(Account& account) override;
 };
 
 #endif // CONTROLADORES_HPP_INCLUDED

@@ -34,6 +34,10 @@ class Account {
          * @brief Define a senha associada a conta.
         */
         Password password;
+        /**
+         * @brief Define o saldo de dinheiro na conta.
+         */
+        Money balance;
     public: 
         /**
          * @brief O método getCPF retorna o CPF do investidor.
@@ -89,6 +93,24 @@ class Account {
          * @param password representa a senha usuário. 
         */
         void setPassword(string input_password);
+        /**
+         * @brief O método getBalance retorna o saldo de dinheiro na conta, que representa a soma do saldo de cada uma das carteiras.
+         * 
+         * Acessa o atributo privado do tipo Money e retorna o valor atualmente registrado.
+         * Permite a leitura externa do código, mantendo o encapsulamento da classe.
+         * 
+         * @return Objeto Money correspondente ao saldo de dinheiro na conta.
+        */
+        Money getBalance();
+        /**
+         * @brief O método setBalance é utilizado para definir o saldo de dinheiro na conta. 
+         * 
+         * Atua como uma interface para registrar o saldo do usuário,
+         * atribui o valor recebido ao objeto interno balance. 
+         * 
+         * @param input_balance representa o saldo de dinheiro na conta do investidor. 
+        */
+        void setBalance(double input_balance);
 };
 
 inline CPF Account::getCPF() {
@@ -113,6 +135,14 @@ inline Password Account::getPassword() {
 
 inline void Account::setPassword(string input_password) {
     this->password.setPassword(input_password);
+}
+
+inline Money Account::getBalance() {
+    return balance;
+}
+
+inline void Account::setBalance(double input_balance) {
+    this->balance.setMoney(input_balance);
 }
 
 /**
@@ -151,6 +181,10 @@ class Order{
          * @brief Define a quantidade de ativos envolvidos na operação.
         */
         Quantity quantity;
+        /**
+         * @brief Define a carteira à qual a ordem pertence.
+        */
+        Code walletCode;
     public:
         /**
          * @brief O método getCode retorna o código identificador da carteira.
@@ -242,6 +276,24 @@ class Order{
          * @param quantity representa a quantidade de ativos. 
         */
         void setQuantity(Quantity quantity);
+        /**
+         * @brief O método setWallet é utilizado para definir a carteira à qual a ordem pertence.
+         * 
+         * Atua como uma interface para registrar o endereço da carteira associada à ordem,
+         * atribui o valor recebido ao objeto interno Wallet.
+         * 
+         * @param wallet representa a carteira associada à ordem.
+        */
+        void setWalletCode(Code walletCode);
+        /**
+         * @brief O método getWallet retorna a carteira à qual a ordem pertence.
+         * 
+         * Acessa o atributo privado do tipo Wallet e retorna o valor registrado (nesse caso, um objeto da classe Wallet).
+         * Permite a leitura externa da carteira, mantendo o encapsulamento da classe.
+         * 
+         * @return Objeto Wallet correspondente à carteira da ordem.
+        */
+        Code getWalletCode();
 };
 
 inline Code Order::getCode(){
@@ -284,6 +336,14 @@ inline void Order::setQuantity(Quantity quantity) {
     this->quantity = quantity;
 }
 
+inline void Order::setWalletCode(Code walletCode) {
+    this->walletCode = walletCode;
+}
+
+inline Code Order::getWalletCode() {
+    return walletCode;
+}
+
 /**
  * @class Wallet
  * @brief A entidade Wallet representa uma carteira de investimentos. 
@@ -311,6 +371,18 @@ class Wallet {
          * @brief Define o perfil do investidor.
         */
         Profile profile;
+        /**
+         * @brief Define o saldo de dinheiro na carteira ao se considerar o preço de todas as ordens pertencentes a ela.
+        */
+        Money balance;
+        /**
+         * @brief Define o proprietário da conta.
+         */
+        Account* accountOwner;
+         /**
+         * @brief Define a quantidade de ordens registradas nessa carteira.
+        */
+        int orders_count = 0;
     public:
         /**
          * @brief O método setCode é utilizado para definir o código de identificação da carteira. 
@@ -366,6 +438,65 @@ class Wallet {
          * @return Objeto Profile correspondente ao perfil do investidor.
         */
         Profile getProfile();
+        /**
+         * @brief O método getOrdersCount retorna a quantidade de ordens registradas nessa carteira.
+         * 
+         * Acessa o atributo privado do tipo int e retorna o valor registrado.
+         * Permite a leitura externa do código, mantendo o encapsulamento da classe.
+         * 
+         * @return Inteiro correspondente à quantidade de ordens registradas.
+        */
+        int getOrdersCount();
+        /**
+         * @brief O método increaseOrdersCount incrementa a quantidade de ordens registradas nessa carteira.
+         * 
+         * Este método é utilizado para atualizar o contador de ordens sempre que uma nova ordem é adicionada à carteira.
+         * Ele simplesmente incrementa o valor do atributo orders_count em 1.
+         */
+        void increaseOrdersCount();
+        /**
+         * @brief O método decreaseOrdersCount decrementa a quantidade de ordens registradas nessa carteira.
+         * 
+         * Este método é utilizado para atualizar o contador de ordens sempre que uma ordem é removida da carteira.
+         * Ele verifica se o contador é maior que zero antes de decrementá-lo, evitando valores negativos.
+         */
+        void decreaseOrdersCount();
+        /**
+         * @brief O método setBalance é utilizado para definir o saldo de dinheiro na carteira.
+         * 
+         * Atua como uma interface para registrar o saldo de dinheiro,
+         * atribui o valor recebido ao objeto interno Money.
+         * 
+         * @param money representa o saldo de dinheiro na carteira. 
+        */
+        void setBalance(double money);
+        /**
+         * @brief O método getBalance retorna o saldo de dinheiro na carteira.
+         * 
+         * Acessa o atributo privado do tipo Money e retorna o valor atualmente registrado.
+         * Permite a leitura externa do código, mantendo o encapsulamento da classe.
+         * 
+         * @return Objeto Money correspondente ao saldo de dinheiro na carteira.
+        */
+        Money getBalance();
+        /**
+         * @brief O método setAccountOwner é utilizado para definir o CPF do proprietário da conta.
+         * 
+         * Atua como uma interface para registrar o CPF do proprietário,
+         * atribui o valor recebido ao objeto interno CPF.
+         * 
+         * @param cpf representa o CPF do proprietário da conta. 
+        */
+        void setAccountOwner(Account* account);
+        /**
+         * @brief O método getAccountOwner retorna o CPF do proprietário da conta.
+         * 
+         * Acessa o atributo privado do tipo CPF e retorna o valor atualmente registrado.
+         * Permite a leitura externa do código, mantendo o encapsulamento da classe.
+         * 
+         * @return Objeto CPF correspondente ao proprietário da conta.
+        */
+        Account* getAccountOwner();
 };
 
 inline void Wallet::setCode(string code){
@@ -390,6 +521,36 @@ inline void Wallet::setProfile(string profile){
 
 inline Profile Wallet::getProfile() {
     return profile;
+}
+
+inline int Wallet::getOrdersCount() {
+    return orders_count;
+}
+
+inline void Wallet::increaseOrdersCount() {
+    orders_count++;
+}
+
+inline void Wallet::decreaseOrdersCount() {
+    if (orders_count > 0) {
+        orders_count--;
+    }
+}
+
+inline void Wallet::setBalance(double money) {
+    this->balance.setMoney(money);
+}
+
+inline Money Wallet::getBalance() {
+    return balance;
+}
+
+inline void Wallet::setAccountOwner(Account* account) {
+    this->accountOwner = account;
+}
+
+inline Account* Wallet::getAccountOwner() {
+    return accountOwner;
 }
 
 #endif

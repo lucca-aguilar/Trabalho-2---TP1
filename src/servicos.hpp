@@ -14,7 +14,7 @@ class MSC : public ISC {
         bool create(Account& account) override; // override sobrescreve metodo virtual puro
         bool read(Account* account) override;
         bool edit(Account& account) override;
-        bool exclude(CPF& cpf) override;
+        bool exclude(const CPF& cpf) override;
 };
 
 // implementacao do modulo de servico de autenticacao
@@ -43,7 +43,7 @@ class MSI : public ISI {
         bool create(Order& order) override;
         bool read(Order* order) override;
         bool excludeOrder(Code& code) override;
-        bool listOrders() override;
+        bool listOrders(Code& code) override;
 };
 
 #endif
