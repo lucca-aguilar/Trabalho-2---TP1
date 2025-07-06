@@ -24,17 +24,17 @@
 */
 var NAVTREE =
 [
-  [ "Projeto1-TP1", "index.html", [
+  [ "Carteira de Investimentos", "index.html", [
     [ "Classes", "annotated.html", [
-      [ "Class List", "annotated.html", "annotated_dup" ],
-      [ "Class Index", "classes.html", null ],
-      [ "Class Members", "functions.html", [
-        [ "All", "functions.html", null ],
-        [ "Functions", "functions_func.html", null ]
+      [ "Lista de Classes", "annotated.html", "annotated_dup" ],
+      [ "Índice dos Componentes", "classes.html", null ],
+      [ "Membros de classe", "functions.html", [
+        [ "Todos", "functions.html", null ],
+        [ "Funções", "functions_func.html", null ]
       ] ]
     ] ],
-    [ "Files", "files.html", [
-      [ "File List", "files.html", "files_dup" ]
+    [ "Arquivos", "files.html", [
+      [ "Lista de Arquivos", "files.html", "files_dup" ]
     ] ]
   ] ]
 ];
@@ -44,5 +44,5 @@ var NAVTREEINDEX =
 "annotated.html"
 ];
 
-var SYNCONMSG = 'click to disable panel synchronization';
-var SYNCOFFMSG = 'click to enable panel synchronization';
+var SYNCONMSG = 'clique para desativar a sincronização do painel';
+var SYNCOFFMSG = 'clique para ativar a sincronização do painel';

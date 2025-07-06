@@ -1,15 +1,10 @@
 var annotated_dup =
 [
-    [ "Account", "class_account.html", "class_account" ],
-    [ "Code", "class_code.html", "class_code" ],
-    [ "CPF", "class_c_p_f.html", "class_c_p_f" ],
-    [ "Date", "class_date.html", "class_date" ],
-    [ "Deal", "class_deal.html", "class_deal" ],
-    [ "Money", "class_money.html", "class_money" ],
-    [ "Name", "class_name.html", "class_name" ],
-    [ "Order", "class_order.html", "class_order" ],
-    [ "Password", "class_password.html", "class_password" ],
-    [ "Profile", "class_profile.html", "class_profile" ],
-    [ "Quantity", "class_quantity.html", "class_quantity" ],
-    [ "Wallet", "class_wallet.html", "class_wallet" ]
+    [ "IAA", "class_i_a_a.html", "class_i_a_a" ],
+    [ "IAC", "class_i_a_c.html", "class_i_a_c" ],
+    [ "IAI", "class_i_a_i.html", "class_i_a_i" ],
+    [ "ISA", "class_i_s_a.html", "class_i_s_a" ],
+    [ "ISC", "class_i_s_c.html", "class_i_s_c" ],
+    [ "ISI", "class_i_s_i.html", "class_i_s_i" ],
+    [ "IUMenu", "class_i_u_menu.html", "class_i_u_menu" ]
 ];
